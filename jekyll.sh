@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 cd /root/project
 if [[ $# -gt 0 ]]; then
 	jekyll $@ 
