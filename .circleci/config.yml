@@ -4,6 +4,8 @@ jobs:
     working_directory: /app
     docker:
       - image: docker:17.05.0-ce-git
+        auth: $DOCKERHUB_USERNAME
+        password: $DOCKERHUB_PASS
     steps:
       - checkout
       - setup_remote_docker
@@ -19,7 +21,6 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-               echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
               docker push MrSeccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
               docker push MrSeccubus/github-pages:latest
             fi
