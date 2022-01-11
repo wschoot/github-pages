@@ -22,6 +22,6 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker push MrSeccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
-              docker push MrSeccubus/github-pages:latest
+              docker push mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
+              docker push mrseccubus/github-pages:latest
             fi
