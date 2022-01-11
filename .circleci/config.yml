@@ -19,6 +19,7 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker push github-pages:$(cat version.txt)
-              docker push github-pages:latest
+               echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+              docker push MrSeccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
+              docker push MrSeccubus/github-pages:latest
             fi
