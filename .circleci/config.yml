@@ -3,10 +3,16 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: docker:17.05.0-ce-git
+      - image: alpine
     steps:
       - checkout
       - setup_remote_docker
+        docker_layer_caching: true
+      - run:
+          name: Prerequisites
+          command: |
+            apk update
+            apk add docker-cli
       - run:
           name: Build application Docker image
           command: |
@@ -21,7 +27,7 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
+              echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USERNAME --password-stdin 
               docker push mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
               docker push mrseccubus/github-pages:latest
             fi
