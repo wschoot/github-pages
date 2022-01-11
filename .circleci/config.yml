@@ -21,7 +21,7 @@ jobs:
           name: Push application Docker image
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker ogin -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
+              docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASS"
               docker push mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
               docker push mrseccubus/github-pages:latest
             fi
