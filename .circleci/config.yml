@@ -9,7 +9,7 @@ jobs:
           name: Prerequisites
           command: |
             apk update
-            apk add docker-cli git ssh
+            apk add docker-cli git openssh
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
