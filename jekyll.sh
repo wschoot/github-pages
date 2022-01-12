@@ -7,7 +7,7 @@ if [[ -e Gemfile ]]; then
 fi
 
 if [[ $# -gt 0 ]]; then
-	bundle exec jekyll $@ 
+	$EXEC jekyll $@ 
 else
 	if [[ ! -e _config.yml ]] ; then
 		$EXEC jekyll new .
