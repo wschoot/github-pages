@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /srv/jekyll
+cd /root/project
 if [[ -e Gemfile ]]; then
 	echo "*** Installing Gems in Gemfile ***"
 	bundle install 
