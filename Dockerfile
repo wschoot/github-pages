@@ -2,7 +2,11 @@ FROM ubuntu
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
-RUN apt-get update && apt-get install -y ruby ruby-dev build-essential git
+ENV TZ=Europe/Amsterdam
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN echo "Europe/Amsterdam" > /etc/timezone && \
+    apt-get update && \
+    apt-get install -y ruby ruby-dev build-essential git 
 RUN gem install --no-document jekyll 
 RUN gem install --no-document github-pages 
 RUN gem install --no-document jekyll-secinfo jekyll-paginate  webrick bundler racc minitest rexml 
