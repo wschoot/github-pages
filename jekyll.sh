@@ -1,14 +1,20 @@
 #!/bin/bash
-cd /root/project
+cd /srv/jekyll
+if [[ -e Gemfile ]]; then
+	echo "*** Installing Gems in Gemfile ***"
+	bundle install 
+	EXEC="bundle exec"
+fi
+
 if [[ $# -gt 0 ]]; then
-	jekyll $@ 
+	bundle exec jekyll $@ 
 else
 	if [[ ! -e _config.yml ]] ; then
-		jekyll new .
+		$EXEC jekyll new .
 	fi
 	while [ 1 ] ; do
 		rm -rf _site/*
-		jekyll serve --incremental --host=0.0.0.0 # --verbose
+		$EXEC jekyll serve --incremental --host=0.0.0.0 # --verbose
 		set -e
 		echo 'Press CTRL+C now to quit'
 		sleep 1
