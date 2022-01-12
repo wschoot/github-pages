@@ -5,7 +5,7 @@ FROM alpine:3.13
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
 RUN apk add make g++ ruby ruby-dev && \
-gem install --no-document --user-install jekyll github-pages jekyll-secinfo webrick bundler
+gem install --no-document jekyll github-pages jekyll-secinfo webrick bundler
 
 WORKDIR /root/project
 
