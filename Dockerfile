@@ -1,14 +1,11 @@
-# Need 3.13 because of this https://stackoverflow.com/questions/68243042/you-dont-have-write-permissions-for-the-usr-lib-ruby-gems-2-7-0-directory-alp
-
-#FROM alpine:3.13
-FROM ruby:3-alpine
+FROM ubuntu
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
-RUN apk add make g++ ruby ruby-dev 
+RUN apt-get update && apt-get install -y ruby ruby-dev build-essential git
 RUN gem install --no-document jekyll 
 RUN gem install --no-document github-pages 
-RUN gem install --no-document jekyll-secinfo webrick bundler
+RUN gem install --no-document jekyll-secinfo webrick bundler racc minitest rexml 
 
 WORKDIR /root/project
 
