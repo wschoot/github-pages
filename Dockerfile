@@ -1,13 +1,11 @@
-FROM alpine:latest
+# Need 3.13 because of this https://stackoverflow.com/questions/68243042/you-dont-have-write-permissions-for-the-usr-lib-ruby-gems-2-7-0-directory-alp
+
+FROM alpine:3.13
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
-RUN apk add make g++ ruby ruby-dev 
-RUN gem install --no-document jekyll 
-RUN gem install --no document github-pages 
-RUN gem install --no document jekyll-secinfo 
-RUN gem install --no document webrick 
-RUN gem install --no document bundler
+RUN apk add make g++ ruby ruby-dev && \
+gem install --no-document --user-install jekyll github-pages jekyll-secinfo webrick bundler
 
 WORKDIR /root/project
 
