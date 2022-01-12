@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /srv/jekyll
+cd /root/project
 if [[ -e Gemfile ]]; then
 	echo "*** Installing Gems in Gemfile ***"
 	bundle install 
@@ -7,7 +7,7 @@ if [[ -e Gemfile ]]; then
 fi
 
 if [[ $# -gt 0 ]]; then
-	bundle exec jekyll $@ 
+	$EXEC jekyll $@ 
 else
 	if [[ ! -e _config.yml ]] ; then
 		$EXEC jekyll new .

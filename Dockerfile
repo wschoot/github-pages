@@ -1,14 +1,15 @@
-FROM jekyll/jekyll:latest
+FROM ubuntu
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
-RUN apk update && \
-apk upgrade
+RUN apt-get update && apt-get install -y ruby ruby-dev build-essential git
+RUN gem install --no-document jekyll 
+RUN gem install --no-document github-pages 
+RUN gem install --no-document jekyll-secinfo webrick bundler racc minitest rexml 
 
+WORKDIR /root/project
 
-WORKDIR /srv/jekyll
-
-COPY Gemfile /srv/jekyll
+COPY Gemfile /root/project
 
 #RUN gem install github-pages
 RUN bundle install 
