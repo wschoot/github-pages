@@ -2,8 +2,12 @@ FROM alpine:latest
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
-RUN apk add make g++ ruby ruby-dev && \
-    gem install --no-document  jekyll github-pages jekyll-secinfo webrick bundler
+RUN apk add make g++ ruby ruby-dev 
+RUN gem install --no-document jekyll 
+RUN gem install --no document github-pages 
+RUN gem install --no document jekyll-secinfo 
+RUN gem install --no document webrick 
+RUN gem install --no document bundler
 
 WORKDIR /root/project
 
