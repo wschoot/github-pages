@@ -14,12 +14,6 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
           version: 19.03.14
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build -t github-pages .;
-            docker tag github-pages mrseccubus/github-pages:latest;
-            docker tag github-pages mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
       - run: |
           ssh remote-docker \<<EOF
             sudo bash -c 'echo "{\"experimental\": true}" > /etc/docker/daemon.json'
@@ -28,6 +22,12 @@ jobs:
           EOF
       - run : |
           docker buildx build --platform linux/arm64 --load --progress plain -t github-pages . --push
+      - run:
+          name: Build application Docker image
+          command: |
+            docker build -t github-pages .;
+            docker tag github-pages mrseccubus/github-pages:latest;
+            docker tag github-pages mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
       - run:
           name: Build application Docker image
           command: |
