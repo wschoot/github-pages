@@ -5,6 +5,9 @@ LABEL maintainer="fbreedijk@schubergphilis.com"
 # Set the timezome
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
+RUN ln -s /usr/bin/dpkg-deb /usr/sbin/dpkg-deb
+RUN ln -s /bin/tar /usr/sbin/tar
 RUN apt-get update && \
     apt-get install -y ruby ruby-dev build-essential git locales python3-pip libcurl4 default-jre-headless
 # This is needed because of known x-build issue
