@@ -5,8 +5,7 @@ LABEL maintainer="fbreedijk@schubergphilis.com"
 # Set the timezome
 ENV TZ=Europe/Amsterdam
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN echo "Europe/Amsterdam" > /etc/timezone && \
-    apt-get update && \
+RUN apt-get update && \
     apt-get install -y ruby ruby-dev build-essential git locales python3-pip libcurl4 default-jre-headless
 # This is needed because of known x-build issue
 # https://stackoverflow.com/questions/70767396/docker-certificate-error-when-building-for-arm-v7-platform
