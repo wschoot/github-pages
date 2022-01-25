@@ -3,7 +3,8 @@ jobs:
   build:
     working_directory: /app
     docker:
-      - image: alpine
+      #- image: alpine
+      - image: cimg/base:stable
     steps:
       - run:
           name: Prerequisites
