@@ -9,5 +9,5 @@ jobs:
       - run: |
           docker buildx build \
             --platform linux/arm64/v8,linux/amd64 \
-            --tag mrseccubus/github-pages:latest . \
-            --progress plain
+            --progress plain \
+            --tag mrseccubus/github-pages:latest . 
