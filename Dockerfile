@@ -9,8 +9,15 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN ln -s /usr/bin/dpkg-split /usr/sbin/dpkg-split
 RUN ln -s /usr/bin/dpkg-deb /usr/sbin/dpkg-deb
 RUN ln -s /bin/tar /usr/sbin/tar
-RUN apt-get update && \
-    apt-get install -y ruby ruby-dev build-essential git locales python3-pip libcurl4 default-jre-headless
+RUN apt-get update
+RUN apt-get install -y ruby 
+RUN apt-get install -y ruby-dev 
+RUN apt-get install -y build-essential 
+RUN apt-get install -y git 
+RUN apt-get install -y locales 
+RUN apt-get install -y python3-pip 
+RUN apt-get install -y libcurl4 
+RUN apt-get install -y default-jre-headless
 # This is needed because of known x-build issue
 # https://stackoverflow.com/questions/70767396/docker-certificate-error-when-building-for-arm-v7-platform
 RUN if test "$(uname -p)" == "armv7" ; then ( for i in /etc/ssl/certs/*.pem; do HASH=$(openssl x509 -hash -noout -in $i); ln -s $(basename $i) /etc/ssl/certs/$HASH.0; done ); fi
