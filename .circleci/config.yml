@@ -8,5 +8,6 @@ jobs:
       - setup_remote_docker
       - run: |
           docker buildx build \
-            --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
-            --tag your-username/multiarch-example:buildx-latest .
+            --platform linux/arm64/v8,linux/amd64 \
+            --tag mrseccubus/github-pages:latest . \
+            -- progress plain
