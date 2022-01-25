@@ -15,7 +15,7 @@ jobs:
           docker_layer_caching: true
           version: 19.03.14
       - run: |
-          ssh remote-docker \<<EOF
+          ssh remote-docker <<EOF
             sudo bash -c 'echo "{\"experimental\": true}" > /etc/docker/daemon.json'
             sudo systemctl restart docker
             sudo docker info
