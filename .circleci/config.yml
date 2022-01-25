@@ -10,7 +10,6 @@ jobs:
 #          command: |
 #            apk update
 #            apk add docker-cli git openssh
-#      - checkout
 #      - setup_remote_docker:
 #          docker_layer_caching: true
       - run:
@@ -32,6 +31,7 @@ jobs:
           command: |
             qemu-aarch64-static --version
             update-binfmts --version 
+      - checkout
       - run:
           name: Create builder
           command: |
