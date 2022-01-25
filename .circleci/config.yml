@@ -1,24 +1,12 @@
-version: 2.1
-
-workflows:
-  build-deploy:
-    jobs:
-     - build
-
+version: 2
 jobs:
-  build:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - setup_remote_docker:
-          version: 19.03.14
-      - checkout
-      - run: 
-          name : Build arm64
-          command : |
-            export DOCKER_CLI_EXPERIMENTAL=enabled
-            docker buildx build --platform=linux/arm64 -t mrseccubus/githubpages:latest --push --progress plain .
-      - run: 
-          name : Build amd64
-          command : |
-            docker build -t mrseccubus/githubpages:latest .
+build:
+  docker:
+    - image: jdrouet/docker-with-buildx:stable
+  steps:
+    - checkout
+    - setup_remote_docker
+    - run: |
+        docker buildx build \
+          --platform linux/arm/v7,linux/arm64/v8,linux/amd64 \
+          --tag your-username/multiarch-example:buildx-latest .
