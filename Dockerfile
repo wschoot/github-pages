@@ -1,4 +1,5 @@
 FROM ubuntu
+ENV PATH="/usr/bin:/usr/sbin:/bin:${PATH}"
 
 LABEL maintainer="fbreedijk@schubergphilis.com"
 
