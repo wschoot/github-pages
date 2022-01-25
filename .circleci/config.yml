@@ -1,44 +1,18 @@
-version: 2
+version: 2.1
+
+workflows:
+  build-deploy:
+    jobs:
+     - build
+
 jobs:
   build:
-    working_directory: /app
     docker:
-      #- image: alpine
       - image: cimg/base:stable
     steps:
-      - run:
-          name: Prerequisites
-          command: |
-            apk update
-            apk add docker-cli git openssh
-      - checkout
       - setup_remote_docker:
-          docker_layer_caching: true
           version: 19.03.14
-#      - run: |
-#          ssh remote-docker <<EOF
-#            sudo bash -c 'echo "{\"experimental\": true}" > /etc/docker/daemon.json'
-#            sudo systemctl restart docker
-#            sudo docker info
-#          EOF
-      - run : |
+      - checkout
+      - run: |
           export DOCKER_CLI_EXPERIMENTAL=enabled
-          docker buildx build --platform linux/arm64 --load --progress plain -t github-pages . --push
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build -t github-pages .;
-            docker tag github-pages mrseccubus/github-pages:latest;
-            docker tag github-pages mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build -t github-pages:latest .
-      - deploy:
-          name: Push application Docker image
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin 
-              docker push mrseccubus/github-pages:$(cat version.txt).$CIRCLE_BUILD_NUM
-              docker push mrseccubus/github-pages:latest
-            fi
+          docker buildx build .
