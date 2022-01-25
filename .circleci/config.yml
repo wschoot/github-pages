@@ -15,4 +15,4 @@ jobs:
       - checkout
       - run: |
           export DOCKER_CLI_EXPERIMENTAL=enabled
-          docker buildx build .
+          docker buildx build --platform=linux/amd64,linux/arm64 -t mrseccubus/githubpages:latest --push --progress plain .
